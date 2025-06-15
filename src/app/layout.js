@@ -45,13 +45,6 @@ export default function RootLayout({ children }) {
                     <UserPlusIcon className="h-5 w-5" />
                     <span>Add User</span>
                   </Link>
-                  <Link
-                    href="/analytics"
-                    className="nav-link flex items-center space-x-1.5 hover:text-blue-600"
-                  >
-                    <ChartBarIcon className="h-5 w-5" />
-                    <span>Analytics</span>
-                  </Link>
                 </div>
               </div>
        
