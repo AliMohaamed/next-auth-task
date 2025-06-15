@@ -4,7 +4,12 @@ import Link from "next/link";
 import { useSession, signIn, signOut } from "next-auth/react";
 import { useEffect, useState } from "react";
 import UserItem from "./components/UserItem";
-import { PlusCircleIcon, ArrowRightOnRectangleIcon } from "@heroicons/react/24/outline";
+
+import {
+  PlusCircleIcon,
+  ArrowRightOnRectangleIcon,
+} from "@heroicons/react/24/outline";
+
 
 export default function Home() {
   const { data: session } = useSession();
@@ -25,10 +30,12 @@ export default function Home() {
     return (
       <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center px-4">
         <div className="max-w-md w-full space-y-8 text-center">
-          <div>
-            <h2 className="mt-6 text-3xl font-bold text-gray-900">Welcome Back</h2>
-            <p className="mt-2 text-sm text-gray-600">
-              Please sign in to manage your users effectively
+
+          <div className="space-y-4">
+            <h2 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+              Welcome Back
+            </h2>
+            <p className="text-gray-600">
             </p>
           </div>
           <button
@@ -60,41 +67,54 @@ export default function Home() {
     );
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="flex justify-between items-center mb-8">
+
+    <div className="space-y-8">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">
-            Welcome back, <span className="text-primary-600">{session.user.name}</span>
+          <h1 className="text-3xl font-bold text-white-900">
+            Welcome back,{" "}
+            <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+              {session.user.name}
+            </span>
           </h1>
-          <p className="mt-1 text-sm text-gray-500">
+          <p className="mt-2 text-gray-600">
             Manage your users and their information
           </p>
         </div>
-        <button
-          className="btn btn-secondary flex items-center gap-2"
-          onClick={() => signOut()}
-        >
-          <ArrowRightOnRectangleIcon className="h-5 w-5" />
-          Logout
-        </button>
-      </div>
-
-      <div className="mb-6">
-        <Link
-          href="/add"
-          className="btn btn-primary inline-flex items-center gap-2"
-        >
-          <PlusCircleIcon className="h-5 w-5" />
-          Add New User
-        </Link>
+        <div className="flex items-center gap-4">
+          <Link
+            href="/add"
+            className="btn btn-primary inline-flex items-center gap-2"
+          >
+            <PlusCircleIcon className="h-5 w-5" />
+            Add New User
+          </Link>
+          <button
+            className="btn btn-secondary flex items-center gap-2"
+            onClick={() => signOut()}
+          >
+            <ArrowRightOnRectangleIcon className="h-5 w-5" />
+            Logout
+          </button>
+        </div>
       </div>
 
       {users.length === 0 ? (
-        <div className="card text-center">
-          <p className="text-gray-500">No users found. Time to add some!</p>
+        <div className="card text-center py-12">
+          <div className="space-y-4">
+            <p className="text-gray-500 text-lg">No users found</p>
+            <Link
+              href="/add"
+              className="btn btn-primary inline-flex items-center gap-2"
+            >
+              <PlusCircleIcon className="h-5 w-5" />
+              Add Your First User
+            </Link>
+          </div>
         </div>
       ) : (
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+
           {users.map((u) => (
             <UserItem key={u._id} user={u} onDelete={handleDelete} />
           ))}
